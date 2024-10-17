@@ -141,11 +141,3 @@ pnpm run ${action} ${name}
 ```
 pnpm run dev host
 ```
-
-- With remote
-
-```
-pnpm run dev remote
-```
-
-- You can also do the same with `build`, `preview`
