@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"lib": ["DOM", "ES2020"],
+		"module": "ESNext",
+		"jsx": "react-jsx",
+		"strict": true,
+		"skipLibCheck": true,
+		"isolatedModules": true,
+		"resolveJsonModule": true,
+		"baseUrl": ".",
+		"moduleResolution": "Bundler",
+		"useDefineForClassFields": true,
+		"paths": {
+			"remote/App": ["../remote/src/App.tsx"],
+			"appStore/store": ["../store/src/store/index.ts"]
+		}
+	},
+	"extends": "@repo/typescript-config/react-library.json",
+	"include": ["src"]
+}

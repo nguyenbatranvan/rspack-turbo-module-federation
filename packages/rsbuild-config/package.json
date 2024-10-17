@@ -1,0 +1,13 @@
+{
+	"name": "rsbuild-config",
+	"version": "0.0.0",
+	"private": true,
+	"dependencies": {
+		"lodash": "^4.17.21"
+	},
+	"devDependencies": {
+		"@types/lodash": "^4.17.10",
+		"@module-federation/enhanced": "^0.6.11",
+		"@rsbuild/plugin-css-minimizer": "^1.0.2"
+	}
+}

@@ -1,81 +1,151 @@
-# Turborepo starter
+# Config rsbuild
 
-This is an official starter Turborepo.
+### config base
 
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+```ts
+import {getRsBuildConfig} from "rsbuild-config/rsbuid-core";
 
 ```
-cd my-turborepo
-pnpm build
+
+- config: type RsbuildConfig
+- opts: type IProps
+
+```ts
+interface IProps {
+    enableCopy?: boolean;
+    moduleFederation?: ModuleFederationPluginOptions;
+}
 ```
 
-### Develop
+### with remote app
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+```ts
+export default defineConfig(
+    getRsBuildConfig(
+        {
+            server: {
+                port: 3001
+            }
+        },
+        {
+            moduleFederation: {
+                dts: false,
+                manifest: false,
+                name: "appStore",
+                exposes: {
+                    "./store": "./src/store/index.ts"
+                },
+                filename: "remoteEntry.js"
+            }
+        }
+    )
+);
 ```
 
-## Useful Links
+- config same module federation v2.0
 
-Learn more about the power of Turborepo:
+### with host app
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+```ts
+export default defineConfig(
+    getRsBuildConfig(
+        {
+            server: {
+                port: 3000
+            }
+        },
+        {
+            moduleFederation: {
+                dts: false,
+                manifest: false,
+                name: "host"
+            }
+        }
+    )
+);
+
+```
+
+### File
+
+- For each app there will be a file named `remote.json` located in the root directory. It will be a json array, will be
+  the name of the apps in the `apps` folder
+- Ex: The host app needs two remote apps named `remote` and `store`. In the folder `apps/host/remote.json` there will be
+  the following values:
+
+```json
+[
+  "store",
+  "remote"
+]
+
+```
+
+- Same with `apps/remote/remote.json` only remote named `store`.
+
+```json
+[
+  "store"
+]
+```
+
+- Also in the `public/assets/config.json` folder, this is where you will add all the remote paths:
+
+```json
+[
+  {
+    "name": "remote",
+    "alias": "remote",
+    "entry": "http://localhost:3002/remoteEntry.js"
+  },
+  {
+    "name": "appStore",
+    "alias": "appStore",
+    "entry": "http://localhost:3001/remoteEntry.js"
+  },
+  ...
+]
+```
+
+### Usage
+
+```ts
+const AppRemote = loadable(
+    () => loadRemote<typeof import("remote/App")>("remote/App"),
+    {
+        fallback: <p>Loading...</p>,
+        resolveComponent: (m) => m.default
+    }
+);
+
+const {useBearStore} =
+    await CustomLoadRemote<typeof import("appStore/store")>("appStore/store");
+
+```
+
+### Run
+
+- dev
+
+```
+pnpm run ${action} ${name}
+```
+
+- action: `dev`, `build`, `preview`, `lint`...
+- name: name app
+
+### With project you can run:
+
+- With host
+
+```
+pnpm run dev host
+```
+
+- With remote
+
+```
+pnpm run dev remote
+```
+
+- You can also do the same with `build`, `preview`

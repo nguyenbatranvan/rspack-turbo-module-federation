@@ -1,0 +1,18 @@
+{
+	"name": "remote",
+	"private": true,
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "rsbuild dev --open",
+		"build": "rsbuild build",
+		"preview": "rsbuild preview",
+		"lint": "pnpm biome check --write"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"custom-components": "workspace:*",
+		"utils": "workspace:*",
+		"@repo/typescript-config": "workspace:*",
+		"rsbuild-config": "workspace:*"
+	}
+}

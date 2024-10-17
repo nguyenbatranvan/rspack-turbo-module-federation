@@ -1,0 +1,12 @@
+[
+	{
+		"name": "remote",
+		"alias": "remote",
+		"entry": "http://localhost:3002/remoteEntry.js"
+	},
+	{
+		"name": "appStore",
+		"alias": "appStore",
+		"entry": "http://localhost:3001/remoteEntry.js"
+	}
+]

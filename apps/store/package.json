@@ -1,0 +1,16 @@
+{
+	"name": "store",
+	"private": true,
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "rsbuild dev",
+		"build": "rsbuild build",
+		"preview": "rsbuild preview",
+		"lint": "pnpm biome check --write"
+	},
+	"devDependencies": {
+		"custom-components": "workspace:*",
+		"@repo/typescript-config": "workspace:*",
+		"rsbuild-config": "workspace:*"
+	}
+}
