@@ -4,6 +4,7 @@
 	"scripts": {
 		"build": "node scripts/run-build.js",
 		"dev": "node scripts/run-dev.js",
+		"doctor": "node scripts/run-docter.js",
 		"lint": "node scripts/run-lint.js",
 		"preview": "node scripts/run-preview.js",
 		"gen": "turbo gen workspace",
@@ -19,6 +20,7 @@
 	"devDependencies": {
 		"turbo": "^2.1.3",
 		"@types/react": "^18.3.11",
+		"cross-env": "^7.0.3",
 		"@types/react-dom": "^18.3.1",
 		"@module-federation/enhanced": "^0.6.11",
 		"@types/loadable__component": "^5.13.9",

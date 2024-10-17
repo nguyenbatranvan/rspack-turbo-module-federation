@@ -7,6 +7,7 @@ import { ModuleFederationPluginOptions } from "./module-federation/module-fedeat
 import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
 import { sharedModuleFederation } from "./module-federation/shared-module-federation";
 import { mergeUtils } from "./utils/merge";
+import { RsdoctorRspackPlugin } from "@rsdoctor/rspack-plugin";
 
 interface BundlerPluginInstance {
 	[index: string]: any;
@@ -28,6 +29,15 @@ const plugins: BundlerPluginInstance[] = [
 		"process.env.PUBLIC_URL": JSON.stringify(process.env.PUBLIC_URL),
 	}),
 ];
+if (process.env.RSDOCTOR) {
+	plugins.push(
+		new RsdoctorRspackPlugin({
+			supports: {
+				generateTileGraph: true,
+			},
+		}),
+	);
+}
 const indexFile = "static/js/index.js";
 export const getRsBuildConfig = (
 	config: RsbuildConfig = {},
