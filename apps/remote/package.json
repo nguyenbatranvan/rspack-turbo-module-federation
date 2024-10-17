@@ -6,6 +6,7 @@
 		"dev": "rsbuild dev --open",
 		"build": "rsbuild build",
 		"preview": "rsbuild preview",
+		"doctor": "cross-env RSDOCTOR=true rsbuild build",
 		"lint": "pnpm biome check --write"
 	},
 	"dependencies": {},

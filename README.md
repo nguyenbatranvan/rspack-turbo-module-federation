@@ -123,9 +123,7 @@ const {useBearStore} =
 
 ```
 
-### Run
-
-- dev
+# Run
 
 ```
 pnpm run ${action} ${name}
@@ -134,7 +132,7 @@ pnpm run ${action} ${name}
 - action: `dev`, `build`, `preview`, `lint`...
 - name: name app
 
-### With project you can run:
+# With project you can run:
 
 - With host
 
@@ -142,10 +140,4 @@ pnpm run ${action} ${name}
 pnpm run dev host
 ```
 
-- With remote
-
-```
-pnpm run dev remote
-```
-
-- You can also do the same with `build`, `preview`
+- You can also do the same with `build`, `preview`, `doctor`, `lint`
