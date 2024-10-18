@@ -3,12 +3,12 @@ import { HtmlConfig, RsbuildConfig, rspack } from "@rsbuild/core";
 import mergeWith from "lodash/mergeWith";
 import * as path from "node:path";
 import { pluginCssMinimizer } from "@rsbuild/plugin-css-minimizer";
-import { ModuleFederationPluginOptions } from "./module-federation/module-fedeation.type";
 import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
 import { sharedModuleFederation } from "./module-federation/shared-module-federation";
 import { mergeUtils } from "./utils/merge";
 import { RsdoctorRspackPlugin } from "@rsdoctor/rspack-plugin";
-
+import type { moduleFederationPlugin } from "@module-federation/sdk";
+import { pluginTypeCheck } from "@rsbuild/plugin-type-check";
 interface BundlerPluginInstance {
 	[index: string]: any;
 
@@ -17,8 +17,9 @@ interface BundlerPluginInstance {
 
 interface IProps {
 	enableCopy?: boolean;
-	moduleFederation?: ModuleFederationPluginOptions;
+	moduleFederation?: moduleFederationPlugin.ModuleFederationPluginOptions;
 }
+
 const root = process.env.INIT_CWD.split("apps")[0]!;
 export const pathJoin = (pathStr: string) => path.join(root, pathStr);
 
@@ -92,8 +93,6 @@ export const getRsBuildConfig = (
 			}),
 		);
 	}
-	// <link rel="icon" href="%PUBLIC_URL%/x-icon.png" />
-	// <script defer="defer" src="static/js/index.js">
 	const defaultConfig: RsbuildConfig = {
 		plugins: [
 			pluginReact({
@@ -102,7 +101,7 @@ export const getRsBuildConfig = (
 					// router: false
 				},
 			}),
-			// pluginTypeCheck(),
+			pluginTypeCheck(),
 			pluginCssMinimizer(),
 		],
 		dev: {

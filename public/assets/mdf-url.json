@@ -8,5 +8,10 @@
 		"name": "appStore",
 		"alias": "appStore",
 		"entry": "http://localhost:3001/remoteEntry.js"
+	},
+	{
+		"name": "remoteTwo",
+		"alias": "remoteTwo",
+		"entry": "http://localhost:3003/remoteEntry.js"
 	}
 ]

@@ -9,6 +9,8 @@
 		"@types/lodash": "^4.17.10",
 		"@rsdoctor/rspack-plugin": "^0.4.6",
 		"@module-federation/enhanced": "^0.6.11",
-		"@rsbuild/plugin-css-minimizer": "^1.0.2"
+		"@rsbuild/plugin-css-minimizer": "^1.0.2",
+		"@module-federation/sdk": "^0.6.11",
+		"@rsbuild/plugin-type-check": "^1.0.1"
 	}
 }

@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"noImplicitAny": true,
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+		"jsx": "react"
 	},
 	"include": ["src"],
 	"exclude": ["dist"]

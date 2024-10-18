@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { fetcherJSON } from "utils";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
 interface IProps {
 	urlConfigRemote?: string;
@@ -18,5 +19,5 @@ export const WrapModuleFederation = async (props: IProps) => {
 	const mdfUrl = await fetcherJSON(urlMdf);
 	window.__ICONDO__REMOTES = mdfUrl;
 	const root = ReactDOM.createRoot(document.getElementById(id)!);
-	root.render(children);
+	root.render(<BrowserRouter>{children}</BrowserRouter>);
 };

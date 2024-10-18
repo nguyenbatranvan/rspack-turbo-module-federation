@@ -21,7 +21,8 @@
 		"enabled": true,
 		"rules": {
 			"style": {
-				"noArguments": "off"
+				"noArguments": "off",
+				"noNonNullAssertion": "off"
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "off"
